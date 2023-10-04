@@ -6,3 +6,5 @@ help:
 .PHONY: build
 build:
 	./gradlew build jacocoTestReport
+test_report:
+	./gradlew jacocoTestReport
