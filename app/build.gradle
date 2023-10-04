@@ -1,5 +1,8 @@
 plugins {
     id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.adarshr.test-logger' version '3.2.0'
 }
 
 application {
@@ -23,8 +26,38 @@ dependencies {
     implementation 'info.picocli:picocli:4.7.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.2'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
+    implementation group: 'org.apache.maven.reporting', name: 'maven-reporting-api', version: '4.0.0-M7'
+    implementation group: 'org.jacoco', name: 'jacoco-maven-plugin', version: '0.8.10'
 }
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+testlogger {
+    theme 'mocha'
+    showExceptions true
+    showStackTraces true
+    showFullStackTraces false
+    showCauses true
+    slowThreshold 2000
+    showSummary true
+    showSimpleNames false
+    showPassed true
+    showSkipped true
+    showFailed true
+    showOnlySlow false
+    showStandardStreams false
+    showPassedStandardStreams true
+    showSkippedStandardStreams true
+    showFailedStandardStreams true
+    logLevel 'lifecycle'
 }
