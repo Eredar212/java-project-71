@@ -1,19 +1,11 @@
 name: test-project
 on:
   push:
-    branches:
-      - master
-      - main
-    tags:
-      - '!*' # Do not execute on tags
     paths:
       - src/*
       - test/*
       - '*.json'
       - yarn.lock
-  pull_request:
-    paths:
-      - '!*.MD'
 jobs:
   test:
     runs-on: ubuntu-latest
