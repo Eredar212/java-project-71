@@ -43,3 +43,4 @@ bin/
 
 file1.json
 file2.json
+!/src/test/resources/*
