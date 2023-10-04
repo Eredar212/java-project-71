@@ -5,4 +5,4 @@ help:
 	./build/install/app/bin/app -h
 .PHONY: build
 build:
-	./gradlew build
+	./gradlew build jacocoTestReport
