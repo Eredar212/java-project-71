@@ -1,8 +1,6 @@
 name: test-project
 on:
   push:
-    branches:
-      - master
     tags:
       - '!*' # Do not execute on tags
     paths:
