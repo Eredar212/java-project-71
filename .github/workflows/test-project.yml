@@ -22,4 +22,5 @@ jobs:
       with:
         # The report file must be there, otherwise Code Climate won't find it
         coverageCommand: make --directory app/ test_report
-        coverage: app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+        coverageLocations: app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+        debug: true
