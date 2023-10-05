@@ -5,6 +5,6 @@ help:
 	./build/install/app/bin/app -h
 .PHONY: build
 build:
-	./gradlew build
+	./gradlew clean build jacocoTestReport
 test_report:
 	./gradlew jacocoTestReport
