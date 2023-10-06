@@ -1,11 +1,7 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -14,26 +10,14 @@ import java.util.TreeSet;
 public class Differ {
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
         format = format.isEmpty() ? "stylish" : format;
-        ObjectMapper objectMapper = new ObjectMapper();
-        // Формируем абсолютный путь,
-        // если filePath будет содержать относительный путь,
-        // то мы всегда будет работать с абсолютным
-        Path path1 = Paths.get(filePath1).toAbsolutePath().normalize();
-        Path path2 = Paths.get(filePath2).toAbsolutePath().normalize();
-        // Проверяем существование файла
-        if (!Files.exists(path1)) {
-            throw new Exception("File '" + path1 + "' does not exist");
-        }
-        if (!Files.exists(path2)) {
-            throw new Exception("File '" + path2 + "' does not exist");
-        }
-        // Читаем файл
-        String content1 = Files.readString(path1);
-        String content2 = Files.readString(path2);
-        Map<String, Object> map1 = objectMapper.readValue(content1, new TypeReference<Map<String, Object>>() {
-        });
-        Map<String, Object> map2 = objectMapper.readValue(content2, new TypeReference<Map<String, Object>>() {
-        });
+        FileExt extension = FileExt.valueOf(filePath1.substring(filePath1.lastIndexOf(".") + 1).toUpperCase());
+        ObjectMapper objectMapper = MapperFactory.createMapper(extension);
+        Map<String, Object> map1 = Parser.parse(filePath1,objectMapper);
+        Map<String, Object> map2 = Parser.parse(filePath2,objectMapper);
+        /*System.out.println("map1");
+        System.out.println(map1);
+        System.out.println("map2");
+        System.out.println(map2);*/
         return getDiff(map1, map2);
     }
 
