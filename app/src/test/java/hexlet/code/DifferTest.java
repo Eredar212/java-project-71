@@ -3,16 +3,13 @@ package hexlet.code;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 
 public class DifferTest {
-     private String expected;
-
+    private String expected;
     @BeforeEach
     public void init() {
         expected = "- follow: false\n" + "  host: hexlet.io\n" + "- proxy: 123.234.53.22\n" + "- timeout: 50\n"

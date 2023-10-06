@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.nio.file.Files;
@@ -19,6 +20,8 @@ public class Parser {
         String content1 = Files.readString(path1);
         /*System.out.println("content of " + filePath);
         System.out.println(content1);*/
-        return objectMapper.readValue(content1, HashMap.class);
+        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<>() {
+        };
+        return objectMapper.readValue(content1, typeRef);
     }
 }
