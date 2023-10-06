@@ -30,10 +30,16 @@ public class DifferTest {
     }
 
     @Test
-    public void worongPaths() throws Exception {
+    public void wrongPaths() throws Exception {
         String path1 = "src/test/resources/file1.json";
         String path2 = "src/test/resources/file3.json";
         assertThrows(Exception.class, () -> Differ.generate(path1, path2, ""));
     }
 
+    @Test
+    public void wrongExtension() throws Exception {
+        String path1 = "src/test/resources/file1.txt";
+        String path2 = "src/test/resources/file3.txt";
+        assertThrows(Exception.class, () -> Differ.generate(path1, path2, ""));
+    }
 }
