@@ -27,11 +27,13 @@ public class Differ {
         keySet.addAll(map2.keySet());
         for (String key : keySet) {
             if (map1.containsKey(key) && map2.containsKey(key)) {
-                if (!map1.get(key).equals(map2.get(key))) {
-                    sp.append("- ").append(key).append(": ").append(map1.get(key)).append("\n");
-                    sp.append("+ ").append(key).append(": ").append(map2.get(key));
+                var value1 = map1.get(key);
+                var value2 = map2.get(key);
+                if (!value1.equals(value2)) {
+                    sp.append("- ").append(key).append(": ").append(value1).append("\n");
+                    sp.append("+ ").append(key).append(": ").append(value2);
                 } else {
-                    sp.append("  ").append(key).append(": ").append(map1.get(key));
+                    sp.append("  ").append(key).append(": ").append(value1);
                 }
             } else {
                 if (map1.containsKey(key)) {
