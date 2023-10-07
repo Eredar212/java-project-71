@@ -101,7 +101,13 @@ public class DifferTest {
     @Test
     public void wrongExtension() throws Exception {
         String path1 = "src/test/resources/file1.txt";
-        String path2 = "src/test/resources/file3.txt";
+        String path2 = "src/test/resources/file1.txt";
         assertThrows(Exception.class, () -> Differ.generate(path1, path2, ""));
+    }
+    @Test
+    public void wrongFormat() throws Exception {
+        String path1 = "src/test/resources/file1.txt";
+        String path2 = "src/test/resources/file3.txt";
+        assertThrows(Exception.class, () -> Differ.generate(path1, path2, "txt"));
     }
 }
