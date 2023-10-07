@@ -42,6 +42,20 @@ public class DifferTest {
               - setting3: true
               + setting3: none
             }""";
+    private final String expectedPlain = """
+            Property 'chars2' was updated. From [complex value] to false
+            Property 'checked' was updated. From false to true
+            Property 'default' was updated. From null to [complex value]
+            Property 'id' was updated. From 45 to null
+            Property 'key1' was removed
+            Property 'key2' was added with value: 'value2'
+            Property 'numbers2' was updated. From [complex value] to [complex value]
+            Property 'numbers3' was removed
+            Property 'numbers4' was added with value: [complex value]
+            Property 'obj1' was added with value: [complex value]
+            Property 'setting1' was updated. From 'Some value' to 'Another value'
+            Property 'setting2' was updated. From 200 to 300
+            Property 'setting3' was updated. From true to 'none'""";
 /*    @Test
     public void getDiffTest() throws Exception {
         String path1 = "src/test/resources/file1.json";
@@ -62,9 +76,21 @@ public class DifferTest {
     }
     @Test
     public void getDiffTestJsonComposite() throws Exception {
-        String path1yml = "src/test/resources/file1Composite.json";
-        String path2yml = "src/test/resources/file2Composite.json";
-        assertThat(Differ.generate(path1yml, path2yml, "stylish")).isEqualTo(compositeExpected);
+        String path1json = "src/test/resources/file1Composite.json";
+        String path2json = "src/test/resources/file2Composite.json";
+        assertThat(Differ.generate(path1json, path2json, "stylish")).isEqualTo(compositeExpected);
+    }
+    @Test
+    public void getDiffTestYmlCompositePlain() throws Exception {
+        String path1yml = "src/test/resources/file1Composite.yml";
+        String path2yml = "src/test/resources/file2Composite.yml";
+        assertThat(Differ.generate(path1yml, path2yml, "plain")).isEqualTo(expectedPlain);
+    }
+    @Test
+    public void getDiffTestJsonCompositePlain() throws Exception {
+        String path1json = "src/test/resources/file1Composite.json";
+        String path2json = "src/test/resources/file2Composite.json";
+        assertThat(Differ.generate(path1json, path2json, "plain")).isEqualTo(expectedPlain);
     }
     @Test
     public void wrongPaths() throws Exception {

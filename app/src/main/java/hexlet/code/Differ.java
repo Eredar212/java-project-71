@@ -11,7 +11,6 @@ public class Differ {
         Map<String, Object> map1 = Parser.parse(filePath1, objectMapper);
         Map<String, Object> map2 = Parser.parse(filePath2, objectMapper);
         Map<String, Map<String, Object>> diff = Difference.getDiff(map1, map2);
-        Formatter formatter = new Formatter(format);
-        return formatter.getFormattedDiff(diff);
+        return Formatter.getFormattedDiffString(diff, format);
     }
 }
