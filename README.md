@@ -10,3 +10,5 @@
 [Asciinema YAML Simple](https://asciinema.org/a/612369)
 
 [Asciinema JSON YML Composite](https://asciinema.org/a/612450)
+
+[Asciinema "plain" Format Option](https://asciinema.org/a/612459)
