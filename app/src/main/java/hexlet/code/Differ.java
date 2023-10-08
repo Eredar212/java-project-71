@@ -2,6 +2,11 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import hexlet.code.Utils.Difference;
+import hexlet.code.Utils.FileExt;
+import hexlet.code.Utils.Formatter;
+import hexlet.code.Utils.MapperFactory;
+import hexlet.code.Utils.Parser;
 import java.util.Map;
 
 public class Differ {

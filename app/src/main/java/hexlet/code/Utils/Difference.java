@@ -1,4 +1,4 @@
-package hexlet.code;
+package hexlet.code.Utils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
