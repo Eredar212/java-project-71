@@ -1,5 +1,8 @@
 package hexlet.code;
 
+import hexlet.code.parsers.JsonParser;
+import hexlet.code.parsers.YamlParser;
+
 public class ParserFactory {
     public static Parser createParser(String ext) {
         return switch (FileExt.valueOf(ext)) {
