@@ -1,23 +1,19 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import hexlet.code.Utils.Difference;
-import hexlet.code.Utils.FileExt;
-import hexlet.code.Utils.Formatter;
-import hexlet.code.Utils.MapperFactory;
-import hexlet.code.Utils.Parser;
 import java.util.Map;
+import org.codehaus.plexus.util.FileUtils;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
-        FileExt extension = FileExt.valueOf(filePath1.substring(filePath1.lastIndexOf(".") + 1).toUpperCase());
-        ObjectMapper objectMapper = MapperFactory.createMapper(extension);
-        Map<String, Object> map1 = Parser.parse(filePath1, objectMapper);
-        Map<String, Object> map2 = Parser.parse(filePath2, objectMapper);
-        Map<String, Map<String, Object>> diff = Difference.getDiff(map1, map2);
+        String content1 = Supplier.getData(filePath1);
+        String content2 = Supplier.getData(filePath2);
+        Parser parser = ParserFactory.createParser(FileUtils.extension(filePath1).toUpperCase());
+        Map<String, Object> data1 = parser.parse(content1);
+        Map<String, Object> data2 = parser.parse(content2);
+        Map<String, Map<String, Object[]>> diff = DiffBuilder.getDiff(data1, data2);
         return Formatter.getFormattedDiffString(diff, format);
     }
+
     public static String generate(String filePath1, String filePath2) throws Exception {
         return generate(filePath1, filePath2, "stylish");
     }

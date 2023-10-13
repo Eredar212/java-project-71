@@ -1,4 +1,4 @@
-package hexlet.code.Utils;
+package hexlet.code;
 
 public enum FileExt {
     JSON,

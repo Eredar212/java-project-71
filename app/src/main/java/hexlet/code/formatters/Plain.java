@@ -3,27 +3,32 @@ package hexlet.code.formatters;
 import java.util.Map;
 
 public class Plain {
-    public  static <T> String getFormattedDiff(Map<String, Map<String, T>> diff) {
+    protected static final int NEW_VALUE_INDEX = 0;
+    protected static final int OLD_VALUE_INDEX = 1;
+    public  static String getFormattedDiff(Map<String, Map<String, Object[]>> diff) {
         StringBuilder sp = new StringBuilder();
         for (String key: diff.keySet()) {
             sp.append(formattedKeyDiff(key, diff.get(key)));
         }
         return sp.delete(sp.lastIndexOf("\n"), sp.length()).toString();
     }
-    private static <T> String formattedKeyDiff(String key, Map<String, T> map) {
-        if (map.size() == 2) {
-            return "Property '" + key + "' was updated. From " + getPlainValue(map.get("removed")) + " to "
-                    + getPlainValue(map.get("added")) + "\n";
-        }
+    private static String formattedKeyDiff(String key, Map<String, Object[]> map) {
         StringBuilder sp = new StringBuilder();
         for (String action: map.keySet()) {
             switch (action) {
+                case "updated":
+                    Object[] updatedData = map.get("updated");
+                    sp.append("Property '").append(key).append("' was updated. From ")
+                            .append(getPlainValue(updatedData[OLD_VALUE_INDEX]))
+                            .append(" to ").append(getPlainValue(updatedData[NEW_VALUE_INDEX]))
+                            .append("\n");
+                    break;
                 case "removed":
                     sp.append("Property '").append(key).append("' was removed").append("\n");
                     break;
                 case "added":
                     sp.append("Property '").append(key).append("' was added with value: ")
-                            .append(getPlainValue(map.get(action))).append("\n");
+                            .append(getPlainValue(map.get(action)[NEW_VALUE_INDEX])).append("\n");
                     break;
                 case "unchanged":
                     //sp.append(" ".repeat(4)).append(key).append(": ").append(map.get(action));

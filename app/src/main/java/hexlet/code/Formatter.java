@@ -1,4 +1,4 @@
-package hexlet.code.Utils;
+package hexlet.code;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import hexlet.code.formatters.Json;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Formatter {
 
-    public static String getFormattedDiffString(Map<String, Map<String, Object>> diff, String format)
+    public static String getFormattedDiffString(Map<String, Map<String, Object[]>> diff, String format)
             throws JsonProcessingException {
         return switch (format) {
             case "stylish" -> Stylish.getFormattedDiff(diff);
