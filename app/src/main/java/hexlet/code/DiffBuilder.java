@@ -12,18 +12,14 @@ public class DiffBuilder {
         keySet.addAll(map2.keySet());
         Map<String, Map<String, Object[]>> diff = new LinkedHashMap<>(); //важен порядок считывания
         for (String key : keySet) {
-            if (map1.containsKey(key) && map2.containsKey(key)) {
-                if (!Objects.equals(map1.get(key), map2.get(key))) {
-                    diff.put(key, Map.of("updated", new Object[]{map2.get(key), map1.get(key)}));
-                } else {
-                    diff.put(key, Map.of("unchanged", new Object[]{map1.get(key)}));
-                }
-            } else {
-                if (map1.containsKey(key)) {
-                    diff.put(key, Map.of("removed", new Object[]{map1.get(key)}));
-                } else {
-                    diff.put(key, Map.of("added", new Object[]{map2.get(key)}));
-                }
+            if (!map1.containsKey(key)) {
+                diff.put(key, Map.of("added", new Object[]{map2.get(key)}));
+            } else if (!map2.containsKey(key)) {
+                diff.put(key, Map.of("removed", new Object[]{map1.get(key)}));
+            } else if (Objects.equals(map1.get(key), map2.get(key))) {
+                diff.put(key, Map.of("unchanged", new Object[]{map1.get(key)}));
+            } else if (!Objects.equals(map1.get(key), map2.get(key))) {
+                diff.put(key, Map.of("updated", new Object[]{map2.get(key), map1.get(key)}));
             }
         }
         return diff;
