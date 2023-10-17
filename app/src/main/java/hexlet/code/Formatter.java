@@ -14,7 +14,7 @@ public class Formatter {
             case "stylish" -> Stylish.getFormattedDiff(diff);
             case "plain" -> Plain.getFormattedDiff(diff);
             case "json" -> Json.getFormattedDiff(diff);
-            default -> throw new RuntimeException("Unsupported diff format");
+            default -> throw new RuntimeException("Unsupported \"format\" option: " + format);
         };
     }
 }
