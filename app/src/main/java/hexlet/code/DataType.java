@@ -1,6 +1,6 @@
 package hexlet.code;
 
-public enum FileExt {
+public enum DataType {
     JSON,
     YML,
     YAML
