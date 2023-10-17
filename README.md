@@ -15,6 +15,10 @@
 - -h, --help            Получения информации об использовании команды.  
 - -V, --version         Вывести версию.
 
+Для запуска из проекта выполнить команду
+`make --directory app/ gendiff format=<format> f1=<filepath1> f2=<filepath2>`
+`format=<format>` - необязательный параметр
+
 Демонстрация использования на примерах JSON и YAML форматах данных:
 * формат вывода stylish  
     * [Asciinema JSON Simple](https://asciinema.org/a/611463)  
