@@ -11,7 +11,7 @@ public class Formatter {
     public static String getFormattedDiffString(Map<String, Map<String, Object[]>> diff, String format)
             throws JsonProcessingException {
         return switch (format) {
-            case "stylish" -> Stylish.getFormattedDiff(diff);
+            case "stylish", "" -> Stylish.getFormattedDiff(diff);
             case "plain" -> Plain.getFormattedDiff(diff);
             case "json" -> Json.getFormattedDiff(diff);
             default -> throw new RuntimeException("Unsupported \"format\" option: " + format);
