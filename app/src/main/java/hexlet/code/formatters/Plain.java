@@ -39,13 +39,13 @@ public class Plain {
         }
         return sp.toString();
     }
-    private static Object getPlainValue(Object o) {
+    private static String getPlainValue(Object o) {
         if (o == null) {
             return "null";
         } else if (o instanceof String) {
             return "'" + o + "'";
         } else if (o instanceof Integer || o instanceof Boolean) {
-            return o;
+            return o.toString();
         } else {
             return "[complex value]";
         }
