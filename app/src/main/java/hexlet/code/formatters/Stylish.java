@@ -8,6 +8,7 @@ import static hexlet.code.formatters.Plain.OLD_VALUE_INDEX;
 public class Stylish {
     private static final int OFFSET = 4;
     private static final int MIN_OFFSET = 2;
+
     public static String getFormattedDiff(Map<String, Map<String, Object[]>> diff) {
         StringBuilder sp = new StringBuilder("{\n");
         for (String key : diff.keySet()) {

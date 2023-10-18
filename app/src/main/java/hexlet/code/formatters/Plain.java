@@ -5,6 +5,7 @@ import java.util.Map;
 public class Plain {
     protected static final int NEW_VALUE_INDEX = 0;
     protected static final int OLD_VALUE_INDEX = 1;
+
     public  static String getFormattedDiff(Map<String, Map<String, Object[]>> diff) {
         StringBuilder sp = new StringBuilder();
         for (String key: diff.keySet()) {
@@ -12,6 +13,7 @@ public class Plain {
         }
         return sp.delete(sp.lastIndexOf("\n"), sp.length()).toString();
     }
+
     private static String formattedKeyDiff(String key, Map<String, Object[]> map) {
         StringBuilder sp = new StringBuilder();
         for (String action: map.keySet()) {
@@ -31,7 +33,6 @@ public class Plain {
                             .append(getPlainValue(map.get(action)[NEW_VALUE_INDEX])).append("\n");
                     break;
                 case "unchanged":
-                    //sp.append(" ".repeat(4)).append(key).append(": ").append(map.get(action));
                     break;
                 default:
                     throw new RuntimeException("Illegal difference action: " + action);
@@ -39,6 +40,7 @@ public class Plain {
         }
         return sp.toString();
     }
+
     private static String getPlainValue(Object o) {
         if (o == null) {
             return "null";
