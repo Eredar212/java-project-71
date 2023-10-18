@@ -39,7 +39,7 @@ public class Stylish {
                     sp.append(" ".repeat(OFFSET)).append(key).append(": ").append(map.get(action)[NEW_VALUE_INDEX]);
                     break;
                 default:
-                    throw new RuntimeException("Illegal difference action");
+                    throw new RuntimeException("Illegal difference action: " + action);
             }
             sp.append("\n");
         }

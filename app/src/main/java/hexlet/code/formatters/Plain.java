@@ -34,7 +34,7 @@ public class Plain {
                     //sp.append(" ".repeat(4)).append(key).append(": ").append(map.get(action));
                     break;
                 default:
-                    throw new RuntimeException("Illegal difference action");
+                    throw new RuntimeException("Illegal difference action: " + action);
             }
         }
         return sp.toString();
