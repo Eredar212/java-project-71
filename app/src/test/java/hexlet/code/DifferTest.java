@@ -47,12 +47,12 @@ public final class DifferTest {
         "yml, plain, expectedPlain",
         "yml, json, expectedJson"
     })
-    void generateTest(String dataFormat, String outputFormat, String expected) {
+    void generateTest(String dataFormat, String outputFormat, String expectedVar) {
         String path1yml = "src/test/resources/fixtures/answers/file1Composite." + dataFormat;
         String path2yml = "src/test/resources/fixtures/answers/file2Composite." + dataFormat;
         try {
-            assertThat(Differ.generate(path1yml, path2yml, outputFormat))
-                    .isEqualTo(this.getClass().getDeclaredField(expected).get(this));
+            String expected = (String) this.getClass().getDeclaredField(expectedVar).get(this);
+            assertThat(Differ.generate(path1yml, path2yml, outputFormat)).isEqualTo(expected);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
