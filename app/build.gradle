@@ -26,9 +26,17 @@ dependencies {
     implementation 'info.picocli:picocli:4.7.5'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.2'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
-    implementation group: 'org.apache.maven.reporting', name: 'maven-reporting-api', version: '4.0.0-M7'
     implementation group: 'org.jacoco', name: 'jacoco-maven-plugin', version: '0.8.10'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2'
+
+    //required by project : > org.jacoco:jacoco-maven-plugin:0.8.10,
+    // иначе ошибка > Could not resolve all files for configuration ':compileClasspath'.
+    //   > Could not find org.apache.maven.reporting:maven-reporting-api:${project.prerequisites.maven}.
+    //     Required by:
+    //         project : > org.jacoco:jacoco-maven-plugin:0.8.10
+    implementation group: 'org.apache.maven.reporting', name: 'maven-reporting-api', version: '4.0.0-M7'
+
+
 }
 
 test {
