@@ -52,7 +52,7 @@ jacocoTestReport {
     }
 }
 testlogger {
-    theme 'mocha'
+    theme 'standard'
     showExceptions true
     showStackTraces true
     showFullStackTraces false

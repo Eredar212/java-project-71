@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,49 +35,27 @@ public class DifferTest {
         expectedStylishDefault = readFixture("StylishExpected");
     }
 
-    //test yml -> stylish, default
-    @Test
-    public void getDiffTestYmlComposite() throws Exception {
-        String path1yml = "src/test/resources/fixtures/answers/file1Composite.yml";
-        String path2yml = "src/test/resources/fixtures/answers/file2Composite.yml";
-        assertThat(Differ.generate(path1yml, path2yml, "stylish")).isEqualTo(expectedStylishDefault);
-        assertThat(Differ.generate(path1yml, path2yml, "")).isEqualTo(expectedStylishDefault);
-    }
-    //json -> stylish, default
-    @Test
-    public void getDiffTestJsonComposite() throws Exception {
-        String path1json = "src/test/resources/fixtures/answers/file1Composite.json";
-        String path2json = "src/test/resources/fixtures/answers/file2Composite.json";
-        assertThat(Differ.generate(path1json, path2json, "stylish")).isEqualTo(expectedStylishDefault);
-        assertThat(Differ.generate(path1json, path2json, "")).isEqualTo(expectedStylishDefault);
-    }
-    //yml -> plain
-    @Test
-    public void getDiffTestYmlCompositePlain() throws Exception {
-        String path1yml = "src/test/resources/fixtures/answers/file1Composite.yml";
-        String path2yml = "src/test/resources/fixtures/answers/file2Composite.yml";
-        assertThat(Differ.generate(path1yml, path2yml, "plain")).isEqualTo(expectedPlain);
-    }
-    //json -> plain
-    @Test
-    public void getDiffTestJsonCompositePlain() throws Exception {
-        String path1json = "src/test/resources/fixtures/answers/file1Composite.json";
-        String path2json = "src/test/resources/fixtures/answers/file2Composite.json";
-        assertThat(Differ.generate(path1json, path2json, "plain")).isEqualTo(expectedPlain);
-    }
-    @Test
-    //yml -> json
-    public void getDiffTestYmlCompositeJson() throws Exception {
-        String path1yml = "src/test/resources/fixtures/answers/file1Composite.yml";
-        String path2yml = "src/test/resources/fixtures/answers/file2Composite.yml";
-        assertThat(Differ.generate(path1yml, path2yml, "json")).isEqualTo(expectedJson);
-    }
-    //json -> json
-    @Test
-    public void getDiffTestJsonCompositeJson() throws Exception {
-        String path1json = "src/test/resources/fixtures/answers/file1Composite.json";
-        String path2json = "src/test/resources/fixtures/answers/file2Composite.json";
-        assertThat(Differ.generate(path1json, path2json, "json")).isEqualTo(expectedJson);
+    @ParameterizedTest(name = "[{index}] {arguments}")
+    @CsvSource(useHeadersInDisplayName = true, value = {
+        "In, Out, Expected",
+        "json, stylish, expectedStylishDefault",
+        "json, '', expectedStylishDefault",
+        "json, plain, expectedPlain",
+        "json, json, expectedJson",
+        "yml, stylish, expectedStylishDefault",
+        "yml, '', expectedStylishDefault",
+        "yml, plain, expectedPlain",
+        "yml, json, expectedJson"
+    })
+    void testAll(String dataFormat, String outputFormat, String expected) {
+        String path1yml = "src/test/resources/fixtures/answers/file1Composite." + dataFormat;
+        String path2yml = "src/test/resources/fixtures/answers/file2Composite." + dataFormat;
+        try {
+            assertThat(Differ.generate(path1yml, path2yml, outputFormat))
+                    .isEqualTo(this.getClass().getDeclaredField(expected).get(this));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
