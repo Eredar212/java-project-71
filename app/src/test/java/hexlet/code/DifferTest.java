@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -56,6 +57,14 @@ public final class DifferTest {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @ParameterizedTest(name = "[{index}] {arguments} -> stylish")
+    @ValueSource(strings = {"json", "yml"})
+    void generateTestDefaultFormat(String dataFormat) {
+        String path1yml = "src/test/resources/fixtures/answers/file1Composite." + dataFormat;
+        String path2yml = "src/test/resources/fixtures/answers/file2Composite." + dataFormat;
+        assertThat(Differ.generate(path1yml, path2yml)).isEqualTo(expectedStylishDefault);
     }
 
     @Test
