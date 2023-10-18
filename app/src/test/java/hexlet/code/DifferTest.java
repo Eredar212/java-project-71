@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class DifferTest {
+public final class DifferTest {
     private static String expectedStylishDefault;
     private static String expectedPlain;
     private static String expectedJson;
@@ -47,7 +47,7 @@ public class DifferTest {
         "yml, plain, expectedPlain",
         "yml, json, expectedJson"
     })
-    void testAll(String dataFormat, String outputFormat, String expected) {
+    void generateTest(String dataFormat, String outputFormat, String expected) {
         String path1yml = "src/test/resources/fixtures/answers/file1Composite." + dataFormat;
         String path2yml = "src/test/resources/fixtures/answers/file2Composite." + dataFormat;
         try {
